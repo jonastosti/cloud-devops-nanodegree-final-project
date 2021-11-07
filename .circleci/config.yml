@@ -27,7 +27,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /target
+          at: target/
       - run:
           name: Build Image
           command: docker build -t udacity-final-project/rest-api-version_${CIRCLE_WORKFLOW_ID:0:7} .               
