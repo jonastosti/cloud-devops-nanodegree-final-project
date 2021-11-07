@@ -11,7 +11,7 @@ jobs:
           name: Build
           command: mvn -B -DskipTests clean package
       - save_cache:
-          paths: [cloud-devops-nanodegree-final-project/target]
+          paths: [~/target]
           key: api-jar
   test:
     docker:
