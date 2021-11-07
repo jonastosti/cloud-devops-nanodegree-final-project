@@ -19,8 +19,7 @@ jobs:
           name: Test
           command: mvn test
   build-docker-image:
-    docker:
-      - image: cimg/base:2021.04
+    machine: true
     steps:
       - checkout
       - run:
