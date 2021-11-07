@@ -22,6 +22,14 @@ jobs:
       - run:
           name: Test
           command: mvn test
+  lint:
+    docker:
+      - image: cimg/openjdk:8.0.292
+    steps:
+      - checkout
+      - run:
+          name: Analyze on SonarCloud
+          command: mvn verify sonar:sonar -Dsonar.projectKey=jonastosti_cloud-devops-nanodegree-final-project    
   build-docker-image:
     machine: true
     steps:
@@ -38,11 +46,13 @@ jobs:
             docker push jonastosti/udacity-final-project:${CIRCLE_WORKFLOW_ID:0:7}              
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build
       - test
-      - build-docker-image:
+      - lint:
           requires:
           - build
           - test
+      - build-docker-image:
+          requires:
+          - lint
