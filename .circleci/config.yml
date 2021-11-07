@@ -11,7 +11,7 @@ jobs:
           name: Build
           command: mvn -B -DskipTests clean package
       - persist_to_workspace:
-          root: /target
+          root: target/
           paths:
             - app.jar
   test:
