@@ -22,6 +22,14 @@ jobs:
       - run:
           name: Test
           command: mvn test
+  lint:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - run:
+          name: Analyze on SonarCloud
+          command: mvn verify sonar:sonar -Dsonar.projectKey=jonastosti_cloud-devops-nanodegree-final-project    
   build-docker-image:
     machine: true
     steps:
@@ -35,14 +43,29 @@ jobs:
           name: Push Docker Image
           command:  |
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
-            docker push jonastosti/udacity-final-project:${CIRCLE_WORKFLOW_ID:0:7}              
+            docker push jonastosti/udacity-final-project:${CIRCLE_WORKFLOW_ID:0:7} 
+  set-up-infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          command: |
+            aws cloudformation deploy \
+              --template-file cloud-formation/script.yml \
+              --stack-name "final-project-udacity" \
+              --parameter-overrides EnvironmentName="Udacity-Final-Project-Jonas"
+  deploy-api:
+  
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build
       - test
-      - build-docker-image:
+      - lint:
           requires:
           - build
           - test
+      - build-docker-image:
+          requires:
+          - lint
