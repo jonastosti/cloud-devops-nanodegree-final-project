@@ -88,6 +88,7 @@ Resources:
 
   EKSNodegroup:
     Type: 'AWS::EKS::Nodegroup'
+    DependsOn: ClusterUdacityProject
     Properties:
       ClusterName: ClusterUdacity
       NodeRole: 'arn:aws:iam::382993626017:role/NodeRole_EKS'
