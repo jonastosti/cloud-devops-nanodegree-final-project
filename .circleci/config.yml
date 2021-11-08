@@ -55,8 +55,6 @@ jobs:
               --template-file cloud-formation/script.yml \
               --stack-name "final-project-udacity" \
               --parameter-overrides EnvironmentName="Udacity-Final-Project-Jonas"
-  deploy-api:
-  
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     jobs:
@@ -69,3 +67,6 @@ workflows:
       - build-docker-image:
           requires:
           - lint
+      - set-up-infrastructure:
+          requires:
+            - build-docker-image
