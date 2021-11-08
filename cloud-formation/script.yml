@@ -1,0 +1,100 @@
+Description: >
+    Jonas Tosti / Script designed to create the infra structure in AWS to run a containerized app.
+    This project is part of the Cloud DevOps Engineer Nanodegree Program from Udacity.
+
+Parameters:
+
+  EnvironmentName:
+    Description: An environment name that will be prefixed to resource names
+    Type: String
+
+  VPCCIDR: 
+    Description: Please enter the IP range (CIDR notation) for the VPC
+    Type: String
+    Default: 10.0.0.0/16
+
+  PublicSubnet1CIDR:
+    Description: IP range (CIDR notation) for the Public Subnet 1
+    Type: String
+    Default: 10.0.1.0/24
+
+  PublicSubnet2CIDR:
+    Description: IP range (CIDR notation) for the Public Subnet 2
+    Type: String
+    Default: 10.0.2.0/24
+
+Resources:
+
+  CapstoneProjectVPC:
+    Type: AWS::EC2::VPC
+    Properties: 
+      CidrBlock: !Ref VPCCIDR
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Ref EnvironmentName
+
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      CidrBlock: !Ref PublicSubnet1CIDR
+      MapPublicIpOnLaunch: true
+      Tags: 
+        - Key: Name
+          Value: !Sub ${EnvironmentName} Public Subnet 1
+      VpcId: !Ref CapstoneProjectVPC
+
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      CidrBlock: !Ref PublicSubnet2CIDR
+      MapPublicIpOnLaunch: true
+      Tags: 
+        - Key: Name
+          Value: !Sub ${EnvironmentName} Public Subnet 2
+      VpcId: !Ref CapstoneProjectVPC
+
+  ClusterSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: Allows unrestricted inbound/outbound traffic
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 65535
+        CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 65535
+        CidrIp: 0.0.0.0/0
+      VpcId: !Ref CapstoneProjectVPC
+
+  ClusterUdacityProject:
+    Type: 'AWS::EKS::Cluster'
+    Properties:
+      Name: ClusterUdacity
+      Version: '1.21'
+      RoleArn: >-
+        arn:aws:iam::382993626017:role/AmazonEKSClusterPolicy
+      ResourcesVpcConfig:
+        SecurityGroupIds:
+          - !Ref ClusterSecurityGroup
+        SubnetIds:
+          - !Ref PublicSubnet1
+          - !Ref PublicSubnet2
+
+  EKSNodegroup:
+    Type: 'AWS::EKS::Nodegroup'
+    Properties:
+      ClusterName: ClusterUdacity
+      NodeRole: 'arn:aws:iam::382993626017:role/NodeRole_EKS'
+      ScalingConfig:
+        MinSize: 1
+        DesiredSize: 2
+        MaxSize: 3
+      Subnets:
+          - !Ref PublicSubnet1
+          - !Ref PublicSubnet2
