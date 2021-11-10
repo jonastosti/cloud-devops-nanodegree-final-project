@@ -77,8 +77,7 @@ jobs:
            node-type: t2.micro
            nodes-max: 2
            ssh-access: false
-           ssh-public-key: ''   
-
+           ssh-public-key: '' 
 workflows:
   default: 
     jobs:
