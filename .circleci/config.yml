@@ -78,6 +78,16 @@ jobs:
            nodes-max: 2
            ssh-access: false
            ssh-public-key: ''
+  test-cluster:
+    executor: aws-eks/python3
+    steps:
+      - kubernetes/install
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: udacity-cluster-capstone
+      - run:
+          command: |
+            kubectl get services
+          name: Test cluster
   deploy:
     executor: aws-eks/python3
     steps:
@@ -92,4 +102,4 @@ jobs:
 workflows:
   default: 
     jobs:
-      - deploy
+      - test-cluster
