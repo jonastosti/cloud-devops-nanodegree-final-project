@@ -1,0 +1,37 @@
+apiVersion: apps/v1 
+# Deploys to Cluster
+kind: Deployment
+metadata:
+  name: udacity-final-project
+spec:
+  selector:
+    matchLabels:
+      app: udacity-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: udacity-api
+    spec:
+      containers:
+      - name: udacity-api
+        image: jonastosti/udacity-final-project:${CIRCLE_WORKFLOW_ID:0:7} 
+        ports:
+        - containerPort: 8080
+
+---
+# Creates a service to allow access
+apiVersion: v1
+kind: Service
+metadata:
+  name: udacity-final-project
+  labels:
+    app: udacity-final-project
+spec:
+  type: LoadBalancer
+  selector:
+    app: udacity-final-project
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
