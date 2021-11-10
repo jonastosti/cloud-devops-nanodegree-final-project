@@ -87,8 +87,8 @@ jobs:
           install-kubectl: true
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
-          resource-file-path: deploy-config-file.yml
-          resource-name: deployment/api-final-project-udacity
+          resource-file-path: deployment.yml
+          resource-name: deployment/udacity-final-project
 workflows:
   default: 
     jobs:
