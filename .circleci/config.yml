@@ -46,8 +46,9 @@ jobs:
       - run:
           name: Push Docker Image
           command:  |
+            docker tag jonastosti/udacity-final-project:${CIRCLE_WORKFLOW_ID:0:7} jonastosti/udacity-final-project:latest
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
-            docker push jonastosti/udacity-final-project:${CIRCLE_WORKFLOW_ID:0:7} 
+            docker push jonastosti/udacity-final-project:latest 
   set-up-infrastructure:
      executor: aws-eks/python3
      steps:
