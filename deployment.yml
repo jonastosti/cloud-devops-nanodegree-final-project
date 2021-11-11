@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
       - name: udacity-api
-        image: jonastosti/udacity-final-project:1eadd83
+        image: jonastosti/udacity-final-project:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
 
@@ -32,6 +33,6 @@ spec:
   selector:
     app: udacity-final-project
   ports:
-    - port: 8080
+    - port: 8000
       targetPort: 8080
       protocol: TCP
