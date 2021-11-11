@@ -87,7 +87,10 @@ jobs:
       - run:
           command: |
             kubectl get pods
-          name: Test cluster
+            kubectl get svc
+            kubectl get nodes
+            kubectl get services
+          name: Test cluster   
   deploy:
     executor: aws-eks/python3
     steps:
@@ -102,7 +105,5 @@ jobs:
 workflows:
   default: 
     jobs:
-      - deploy
-      - test-cluster:
-          requires:
-          - deploy
+      - test-cluster
+
