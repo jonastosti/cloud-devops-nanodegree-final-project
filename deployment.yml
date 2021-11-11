@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: udacity-api
-        image: jonastosti/udacity-final-project:${CIRCLE_WORKFLOW_ID:0:7} 
+        image: jonastosti/udacity-final-project:1eadd83
         ports:
         - containerPort: 8080
 
