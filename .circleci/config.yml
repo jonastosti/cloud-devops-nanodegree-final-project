@@ -87,6 +87,9 @@ jobs:
       - run:
           command: |
             kubectl get services
+            kubectl get svc
+            kubectl get nodes
+            kubectl get deployment
           name: Test cluster
   deploy:
     executor: aws-eks/python3
@@ -102,21 +105,4 @@ jobs:
 workflows:
   default: 
     jobs:
-      - build
-      - test
-      - lint:
-          requires:
-          - build
-          - test
-      - build-docker-image:
-          requires:
-          - lint
-      - set-up-infrastructure:
-          requires:
-          - build-docker-image
-      - test-cluster:
-          requires:
-          - set-up-infrastructure
-      - deploy:
-          requires:
-          - test-cluster
+      - test-cluster
