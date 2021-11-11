@@ -105,5 +105,17 @@ jobs:
 workflows:
   default: 
     jobs:
+      - build
+      - test
+      - lint:
+          requires:
+          - build
+          - test
+      - build-docker-image:
+          requires:
+          - lint
+      - deploy:
+          requires:
+          - build-docker-image 
       - test-cluster
 
