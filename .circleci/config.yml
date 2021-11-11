@@ -86,7 +86,6 @@ jobs:
           cluster-name: api-cluster
       - run:
           command: |
-
             kubectl get pods
           name: Test cluster
   deploy:
@@ -103,4 +102,7 @@ jobs:
 workflows:
   default: 
     jobs:
-      - test-cluster
+      - deploy
+      - test-cluster:
+          requires:
+          - deploy
