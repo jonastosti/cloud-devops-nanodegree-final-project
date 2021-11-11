@@ -117,5 +117,8 @@ workflows:
       - deploy:
           requires:
           - build-docker-image 
-      - test-cluster
+      - test-cluster:
+          requires:
+          - deploy 
+
 
