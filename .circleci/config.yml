@@ -72,7 +72,7 @@ jobs:
        - run:
            name: Create Cluster
            command: |
-            eksctl create cluster --name capstone-project --version 1.16 --nodegroup-name standard-workers --node-type t2.medium --nodes 3 --nodes-min 1 --nodes-max 4 --node-ami auto --region us-west-1
+            eksctl create cluster --name capstone-project --version 1.16 --nodegroup-name standard-workers --node-type t2.medium --nodes 3 --nodes-min 1 --nodes-max 4 --region us-west-1
   test-cluster:
     executor: aws-eks/python3
     steps:
@@ -100,18 +100,7 @@ jobs:
 workflows:
   default: 
     jobs:
-      - build
-      - test
-      - lint:
-          requires:
-          - build
-          - test
-      - build-docker-image:
-          requires:
-          - lint
-      - set-up-infrastructure:
-          requires:
-          - build-docker-image
+      - set-up-infrastructure
       - deploy:
           requires:
           - set-up-infrastructure 
