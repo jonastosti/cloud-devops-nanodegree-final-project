@@ -12,7 +12,7 @@ public class CloudDevopsNanodegreeFinalProjectApplication {
 	
 	@GetMapping(path = "/home")
 	public String home() {
-		return "Hello Jonas! This is running in a container! Version 2";
+		return "Hello Jonas! This is running in a container";
 	}
 
 
