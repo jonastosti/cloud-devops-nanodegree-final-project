@@ -72,7 +72,7 @@ jobs:
        - run:
            name: Create Cluster
            command: |
-            eksctl create cluster --name capstone-project --version 1.16 --nodegroup-name standard-workers --node-type t2.medium --nodes 3 --nodes-min 1 --nodes-max 4 --region us-west-1
+            eksctl create cluster --name capstone-project --version 1.21 --nodegroup-name standard-workers --node-type t2.medium --nodes 3 --nodes-min 1 --nodes-max 4 --region us-west-1
   test-cluster:
     executor: aws-eks/python3
     steps:
