@@ -12,8 +12,7 @@ Simple API created with SpringBoot. It only prints a Hello Jonas message.
 
 ### Pipeline
 
-![](Screenshots/Capstone Project - Udacity - Pipeline.png)
-
+![](Screenshots/Capstone%20Project%20-%20Udacity%20-%20Pipeline.png)
 
 ## Screenshots
 
