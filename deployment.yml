@@ -35,4 +35,3 @@ spec:
   ports:
     - port: 8000
       targetPort: 8080
-      protocol: TCP
