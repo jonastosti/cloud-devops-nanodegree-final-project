@@ -91,7 +91,7 @@ jobs:
     steps:
       - checkout
       - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: cluster-capstone
+          cluster-name: capstone-project
           install-kubectl: true
       - kubernetes/create-or-update-resource:
           get-rollout-status: false
@@ -100,10 +100,7 @@ jobs:
 workflows:
   default: 
     jobs:
-      - set-up-infrastructure
-      - deploy:
-          requires:
-          - set-up-infrastructure 
+      - deploy
       - test-cluster:
           requires:
           - deploy 
