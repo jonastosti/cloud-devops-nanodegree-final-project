@@ -1,36 +1,44 @@
-apiVersion: apps/v1 
-# Deploys to Cluster
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: udacity-final-project
+  name: udacity-capstone
+  labels:
+    app: udacity-capstone
+  namespace: default
 spec:
+  replicas: 3
   selector:
     matchLabels:
-      app: udacity-final-project
-  replicas: 1
+      app: udacity-capstone
+  strategy:
+    rollingUpdate:
+   #   maxSurge: 50%
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
-        app: udacity-final-project
+        app: udacity-capstone
     spec:
       containers:
-      - name: udacity-final-project
-        image: jonastosti/udacity-final-project:latest
-        ports:
-        - containerPort: 8080
+        - image: jonastosti/udacity-final-project:latest
+          imagePullPolicy: Always
+          name: udacity-capstone
+          ports:
+            - containerPort: 8080
 
 ---
-# Creates a service to allow access
 apiVersion: v1
 kind: Service
 metadata:
-  name: udacity-final-project-service
+  name: udacity-capstone
   labels:
-    app: udacity-final-project-service
+    app: udacity-capstone
 spec:
   type: LoadBalancer
   selector:
-    app: udacity-final-project
+    app: udacity-capstone
   ports:
     - port: 8000
       targetPort: 8080
+      protocol: TCP
