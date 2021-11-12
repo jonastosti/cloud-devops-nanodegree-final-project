@@ -3,21 +3,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: udacity-final-project
+  labels:
+    app: udacity-final-project
 spec:
   selector:
     matchLabels:
-      app: udacity-api
+      app: udacity-final-project
   replicas: 1
   template:
     metadata:
       labels:
-        app: udacity-api
+        app: udacity-final-project
     spec:
       containers:
-      - name: udacity-api
+      - name: udacity-final-project
         image: jonastosti/udacity-final-project:latest
-        imagePullPolicy: Always
         ports:
+        - name: http-server
         - containerPort: 8080
 
 ---
@@ -25,9 +27,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: udacity-final-project
+  name: udacity-final-project-service
   labels:
-    app: udacity-final-project
+    app: udacity-final-project-service
 spec:
   type: LoadBalancer
   selector:
