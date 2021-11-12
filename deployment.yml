@@ -3,8 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: udacity-final-project
-  labels:
-    app: udacity-final-project
 spec:
   selector:
     matchLabels:
