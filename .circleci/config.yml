@@ -33,7 +33,7 @@ jobs:
       - checkout
       - run:
           name: Analyze on SonarCloud
-          command: mvn verify sonar:sonar -Dsonar.projectKey=jonastosti_cloud-devops-nanodegree-final-project    
+          command: mvn verify sonar:sonar -Dsonar.projectKey=jonastosti_cloud-devops-nanodegree-final-project -Dsonar.qualitygate.wait=true   
   build-docker-image:
     machine: true
     steps:
@@ -100,10 +100,7 @@ jobs:
 workflows:
   default: 
     jobs:
-      - deploy
-      - test-cluster:
-          requires:
-          - deploy 
+      - lint
 
 
  
