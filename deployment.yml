@@ -19,7 +19,6 @@ spec:
       - name: udacity-final-project
         image: jonastosti/udacity-final-project:latest
         ports:
-        - name: http-server
         - containerPort: 8080
 
 ---
