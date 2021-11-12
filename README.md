@@ -12,7 +12,8 @@ Simple API created with SpringBoot. It only prints a Hello Jonas message.
 
 ### Pipeline
 
-![](Screenshots\Capstone Project - Udacity - Pipeline.png)
+![](Screenshots/Capstone Project - Udacity - Pipeline.png)
+
 
 ## Screenshots
 
@@ -24,28 +25,28 @@ The Linting was made using SonarCloud.
 
 #### Failure example
 
-![](Screenshots\QUALITY_GATE_FAILS.JPG)
+![](Screenshots/QUALITY_GATE_FAILS.JPG)
 
-![QUALITY_GATE_FAILS_SONAR](Screenshots\QUALITY_GATE_FAILS_SONAR.JPG)
+![QUALITY_GATE_FAILS_SONAR](Screenshots/QUALITY_GATE_FAILS_SONAR.JPG)
 
 #### Success example
 
-![](Screenshots\QUALITY_GATE_OK.JPG)
+![](Screenshots/QUALITY_GATE_OK.JPG)
 
-![QUALITY_GATE_OK_SONAR](Screenshots\QUALITY_GATE_OK_SONAR.JPG)
+![QUALITY_GATE_OK_SONAR](Screenshots/QUALITY_GATE_OK_SONAR.JPG)
 
 ### Deploy
 
 [![CircleCI](https://circleci.com/gh/jonastosti/cloud-devops-nanodegree-final-project/tree/main.svg?style=svg)](https://circleci.com/gh/jonastosti/cloud-devops-nanodegree-final-project/tree/main)
 
-![](Screenshots\DEPLOY_EVIDENCE.JPG)
+![](Screenshots/DEPLOY_EVIDENCE.JPG)
 
-![Intances_Running](Screenshots\Intances_Running.JPG)
+![Intances_Running](Screenshots/Intances_Running.JPG)
 
 
 
-![](Screenshots\V1_API.JPG)
+![](Screenshots/V1_API.JPG)
 
 ### Cloud Formation
 
-![](Screenshots\CLUSTER_NODES_CLOUD_FORMATION.JPG)
+![](Screenshots/CLUSTER_NODES_CLOUD_FORMATION.JPG)
